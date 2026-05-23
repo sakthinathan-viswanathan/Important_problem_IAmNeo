@@ -1,0 +1,91 @@
+Single File Programming Question
+Find the Correct Shelf Position
+
+A warehouse manager in Coimbatore maintains a sorted list of product codes in ascending order. When a new product code arrives, the manager must determine:
+
+whether the code already exists in the list
+if it does not exist, the exact index where it should be inserted to keep the list sorted
+Instead of printing only one number, the system should print richer information:
+
+the insertion index
+
+the status:
+
+Present if the target already exists
+Insert if the target is not present and must be inserted
+Input format :
+The first line contains an integer n — the size of the sorted array
+The second line contains n space-separated integers in ascending order
+The third line contains an integer target
+Output format :
+First line: print the insertion index as Position: index
+Second line: print the status as Status: Present or Status: Insert
+
+Code constraints :
+1 <= n <= 10^4
+-10^4 <= nums[i] <= 10^4
+nums contains distinct values in ascending order
+-10^4 <= target <= 10^4
+Expected approach: O(log n) using binary search.
+
+Sample test cases :
+Input 1 :
+4
+1 3 5 6
+5
+Output 1 :
+Position: 2
+Status: Present
+Input 2 :
+4
+1 3 5 6
+2
+Output 2 :
+Position: 1
+
+Solution:
+
+// You are using GCC
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    
+   int n;
+   cin >> n;
+   
+   vector<int> arr(n);
+   
+   for(int i = 0; i < n; i++){
+       cin >> arr[i];
+   }
+   
+   int k;
+   cin >> k;
+   
+   int l = 0;
+   int r = n - 1;
+   
+   while(l <= r){
+       
+       int mid = l + (r - l) / 2;
+       
+       if(arr[mid] == k){
+           cout << "Position: " << mid << endl;
+           cout << "Status: Present";
+           return 0;
+       }
+       else if(arr[mid] < k){
+           l = mid + 1;
+       }
+       else{
+           r = mid - 1;
+       }
+   }
+   
+   // Target not found
+   cout << "Position: " << l << endl;
+   cout << "Status: Insert";
+   
+   return 0;
+}
