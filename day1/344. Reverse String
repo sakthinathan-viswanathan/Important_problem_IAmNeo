@@ -1,0 +1,56 @@
+Reverse the Maintenance Code Sequence
+
+system engineer in Coimbatore is checking a device maintenance log where each character of a code is stored separately in an array. For validation, the engineer needs the code to be reversed in place without using an extra array. 
+
+Given a character array s, reverse the array in-place so that the first character becomes the last, the second becomes the second last, and so on. Your task is to reverse the given character array and print the updated array.
+
+Input format :
+The first line contains an integer n — the number of characters in the array.
+The second line contains n space-separated characters.
+Output format :
+Print the reversed character array as n space-separated characters.
+
+Code constraints :
+1 <= n <= 10^5
+Each element of the array is a valid printable character
+The reversal must be done in-place using constant extra space
+
+Sample test cases :
+Input 1 :
+5
+h e l l o
+Output 1 :
+o l l e h
+Input 2 :
+4
+H a n n
+Output 2 :
+n n a H
+
+Solution:
+
+
+
+// You are using GCC
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    
+   string s;
+   cin>>s;
+   
+   int n = s.size()-1;
+   
+   int l = 0;
+   int r = n;
+   
+   while(l<r){
+       swap(s[l],s[r]);
+       l++;
+       r--;
+   }
+   
+   cout<<s;
+  
+}
