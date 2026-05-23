@@ -1,0 +1,83 @@
+Verifying Rearranged Parcel Labels
+
+A logistics coordinator in Chennai receives two parcel label strings, s and t. Before dispatch, the coordinator must verify whether both labels contain exactly the same characters with the same frequencies, even if their order is different.
+
+Instead of printing only true or false, the system should produce a richer result:
+
+print Valid Anagram if both strings are anagrams
+otherwise print Invalid Anagram
+then print the frequency of each character in sorted order for both strings
+Input format :
+The first line contains string s
+The second line contains string t
+Output format :
+First line: print Valid Anagram or Invalid Anagram
+Second line: print S: followed by the character frequencies of string s in sorted character order
+Third line: print T: followed by the character frequencies of string t in sorted character order
+
+Code constraints :
+1 <= len(s), len(t) <= 5 * 10^4
+s and t consist of lowercase English letters only
+
+Sample test cases :
+Input 1 :
+anagram
+nagaram
+Output 1 :
+Valid Anagram
+S: a:3 g:1 m:1 n:1 r:1
+T: a:3 g:1 m:1 n:1 r:1
+
+Input 2 :
+rat
+car
+Output 2 :
+Invalid Anagram
+S: a:1 r:1 t:1
+T: a:1 c:1 r:1
+
+Solution:
+
+
+// You are using GCC
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    
+   string s;
+   string t;
+   
+   cin>>s>>t;
+   
+   map<char,int>freq1;
+   map<char,int>freq2;
+   
+  for(char c:s){
+      freq1[c]++;
+  }
+  
+  for(char c:t){
+      freq2[c]++;
+  }
+  
+  if(freq1 == freq2){
+      cout<<"Valid anagram";
+  }
+  else
+  {
+      cout<<"Invalid anagram";
+  }
+  
+  cout<<"\nS:"<<endl;
+  
+  for(auto c:freq1){
+      cout<<c.first<<" : "<<c.second<<endl;
+  }
+  cout<<"T:"<<endl;
+  
+  for(auto c:freq2){
+      cout<<c.first<<" : "<<c.second<<endl;
+  }
+  
+}
