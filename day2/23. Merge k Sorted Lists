@@ -1,0 +1,71 @@
+Merge Multiple Sorted Data Streams
+
+A distributed data system in Chennai collects sorted logs from multiple servers. Each server produces a sorted linked list of timestamps. The system must combine all logs into a single sorted stream for analysis.
+
+Given k sorted linked lists, merge them into one sorted linked list.
+
+Input format :
+First line: integer k → number of lists
+Next k lines:
+Each line contains:
+n element1 element2 ... elementN
+
+
+Where:
+n = number of elements in the list
+Followed by n sorted integers
+Output format :
+Print merged sorted list
+
+Code constraints :
+0 <= k <= 10^4
+0 <= list length <= 500
+Total nodes ≤ 10^4
+Sample test cases :
+Input 1 :
+3
+3 1 4 5
+3 1 3 4
+2 2 6
+Output 1 :
+1 1 2 3 4 4 5 6 
+Input 2 :
+1
+3 1 2 3
+Output 2 :
+1 2 3
+
+
+Solution:
+
+
+
+// You are using GCC
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    
+    int k;
+    cin >> k;
+    
+    priority_queue<int, vector<int>, greater<int>> pq;
+    
+    for(int i = 0; i < k; i++){
+        int n;
+        cin >> n;
+        
+        for(int j = 0; j < n; j++){
+            int x;
+            cin >> x;
+            pq.push(x);
+        }
+    }
+    
+    while(!pq.empty()){
+        cout << pq.top() << " ";
+        pq.pop();
+    }
+    
+    return 0;
+}
