@@ -1,0 +1,82 @@
+Finding Sales Patterns in a Store
+
+
+
+A retail analyst in Chennai tracks daily profit/loss values in an array. They want to find how many continuous periods (subarrays) have a total profit equal to a target value k.
+
+
+
+Given an integer array nums and an integer k, return the total number of subarrays whose sum equals k.
+
+
+
+NOTE: A subarray is a contiguous sequence of elements.
+
+Input format :
+First line: integer n (size of the array)
+Second line: n space-separated integers
+Third line: integer k
+Output format :
+First line: Count: x (No. of Subarrays)
+Code constraints :
+1 <= n <= 2 * 10^4
+-1000 <= nums[i] <= 1000
+-10^7 <= k <= 10^7
+Sample test cases :
+Input 1 :
+3
+1 1 1
+2
+Output 1 :
+Count: 2
+Input 2 :
+5
+1 2 3 -2 5
+5
+Output 2 :
+Count: 2
+
+
+
+Solution:
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int n;
+    cin >> n;
+
+    vector<int> nums(n);
+
+    for(int i = 0; i < n; i++) {
+        cin >> nums[i];
+    }
+
+    int k;
+    cin >> k;
+
+    unordered_map<int,int> mp;
+
+    mp[0] = 1;
+
+    int sum = 0;
+    int count = 0;
+
+    for(int x : nums) {
+
+        sum += x;
+
+        if(mp.find(sum - k) != mp.end()) {
+            count += mp[sum - k];
+        }
+
+        mp[sum]++;
+    }
+
+    cout << "Count: " << count;
+
+    return 0;
+}
