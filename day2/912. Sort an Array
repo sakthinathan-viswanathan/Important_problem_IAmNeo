@@ -1,0 +1,59 @@
+Sort Product Prices for End-of-Day Reporting
+
+A retail analytics team in Chennai receives an unsorted list of product prices recorded throughout the day. Before generating the end-of-day report, the prices must be arranged in ascending order so that trends, minimum values, maximum values, and comparisons become easier.
+
+Given an integer array, sort the array in ascending order and print the sorted result.
+
+Input format :
+The first line contains an integer n — the size of the array
+The second line contains n space-separated integers
+Output format :
+First line: print the sorted array in ascending order
+  
+Code constraints :
+1 <= n <= 5 * 10^4
+-5 * 10^4 <= nums[i] <= 5 * 10^4
+  
+Sample test cases :
+Input 1 :
+4
+5 2 3 1
+Output 1 :
+1 2 3 5
+Input 2 :
+5
+5 1 1 2 0
+Output 2 :
+0 1 1 2 5
+
+
+solution:
+
+
+// You are using Java
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    
+    int n;
+    cin>>n;
+    
+    vector<int>arr(n);
+    
+    for(int i=0;i<n;i++)
+        cin>>arr[i];
+    
+    for(int i=0;i<n-1;i++){
+        
+        for(int j=i+1;j<n;j++){
+            if(arr[i] > arr[j]){
+                swap(arr[i],arr[j]);
+            }
+        }
+    }
+    
+    for(int i:arr){
+        cout<<i<<" ";
+    }
+}
