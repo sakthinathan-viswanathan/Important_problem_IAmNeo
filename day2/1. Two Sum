@@ -1,0 +1,74 @@
+Find Two Products Matching a Target Price
+A billing system in a supermarket in Chennai records prices of items scanned by a cashier. Sometimes, the cashier needs to quickly find two items whose total price equals a specific target value (for offers or validation).
+
+Given an integer array nums representing item prices and an integer target, find two different indices such that:
+
+nums[i] + nums[j] = target
+
+Return the indices of these two items.
+
+Input format :
+First line contains integer n — size of the array
+Second line contains n space-separated integers
+Third line contains integer target
+Output format :
+Print two space-separated integers — indices of the two numbers
+If no solution exists, print -1 -1
+
+Code constraints :
+2 <= n <= 10^4
+-10^9 <= nums[i] <= 10^9
+-10^9 <= target <= 10^9
+Exactly one valid solution exists in original problem
+You cannot use the same element twice
+
+Sample test cases :
+Input 1 :
+4
+2 7 11 15
+9
+Output 1 :
+0 1
+Input 2 :
+4
+2 7 11 15
+9
+Output 2 :
+0 1
+
+Solution:
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int main(){
+    
+    int n;
+    cin>>n;
+    
+    vector<int>arr(n);
+    
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    
+    int tar;
+    cin>>tar;
+    
+    unordered_map<int,int>mp;
+    
+    
+    for(int i=0;i<n;i++){
+        int diff = tar - arr[i];
+        
+        if(mp.find(diff) != mp.end()){
+            cout<<mp[diff]<<" "<<i;
+            return 0;
+        }
+        else
+        {
+            mp[arr[i]] = i;
+        }
+    }
+}
