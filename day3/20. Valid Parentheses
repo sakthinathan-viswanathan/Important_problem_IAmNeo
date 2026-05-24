@@ -1,0 +1,64 @@
+
+Validate Code Brackets in a Compiler
+A software company in Chennai is building a mini compiler. Before executing code, the compiler must verify whether all brackets in the code are properly balanced and correctly ordered.
+
+Given a string s containing only characters:
+(, ), {, }, [, ]
+Your task is to validate the string.
+
+Input format :
+A single string s
+Output format :
+Print Valid or Invalid
+Code constraints :
+1 <= len(s) <= 10^4
+String contains only ()[]{}
+Sample test cases :
+Input 1 :
+(){}[]
+Output 1 :
+Valid
+Input 2 :
+(]
+Output 2 :
+Invalid
+
+#include<bits/stdc++.h>
+using namespace std;
+
+unordered_map<char,char> mp = {
+    {'>','<'},
+    {')','('},
+    {']','['},
+    {'}','{'},
+};
+
+int main(){
+    
+    string s;
+    cin>>s;
+    
+    int n = s.length();
+    
+    stack<char>stk;
+    
+    for(char c:s){
+        
+        if(c == '(' || c == '{' || c == '[' || c == '<'){
+            stk.push(c);
+        }
+        else
+        {
+            if(!stk.empty() && stk.top() != mp[c]){
+                cout<<"Invalid";
+                return 0;
+            }
+                stk.pop();
+        }
+        
+    }
+    
+    cout<<(stk.empty()?"Valid":"Invalid");
+    
+    
+}
