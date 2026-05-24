@@ -1,0 +1,139 @@
+Design a Browser Cache System
+A web browser in Chennai keeps recently visited pages in memory to load them quickly. However, memory is limited, so when the cache is full, it removes the least recently used (LRU) page.
+
+Design a data structure LRUCache that supports:
+
+get(key)
+
+return value if key exists
+otherwise return -1
+
+mark key as most recently used
+put(key, value)
+
+insert/update value
+
+if capacity exceeded → remove least recently used key
+
+
+ Both operations must run in O(1) time
+
+Input format :
+First line: integer capacity
+Second line: integer q (number of operations)
+Next q lines:
+
+GET key
+PUT key value
+Output format :
+For each GET operation → print result
+Code constraints :
+1 <= capacity <= 3000
+0 <= key, value <= 10^5
+At most 2 * 10^5 operations
+Sample test cases :
+Input 1 :
+2 3
+PUT 1 1
+PUT 2 2
+GET 1
+Output 1 :
+1
+Input 2 :
+2 4
+PUT 1 1
+PUT 2 2
+PUT 3 3
+GET 2
+Output 2 :
+2
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class LRUCache {
+    
+    int cap;
+
+    list<pair<int,int>> cache;
+
+    unordered_map<int, list<pair<int,int>>::iterator> mp;
+
+public:
+
+    LRUCache(int capacity) {
+        cap = capacity;
+    }
+
+    int get(int key) {
+
+        if(mp.find(key) == mp.end()) {
+            return -1;
+        }
+
+        auto it = mp[key];
+
+        int value = it->second;
+
+        cache.erase(it);
+
+        cache.push_front({key, value});
+
+        mp[key] = cache.begin();
+
+        return value;
+    }
+
+    void put(int key, int value) {
+
+        if(mp.find(key) != mp.end()) {
+
+            cache.erase(mp[key]);
+        }
+
+        cache.push_front({key, value});
+
+        mp[key] = cache.begin();
+
+        if(cache.size() > cap) {
+
+            auto last = cache.back();
+
+            mp.erase(last.first);
+
+            cache.pop_back();
+        }
+    }
+};
+
+int main() {
+
+    int capacity, q;
+    cin >> capacity >> q;
+
+    LRUCache obj(capacity);
+
+    while(q--) {
+
+        string op;
+        cin >> op;
+
+        if(op == "GET") {
+
+            int key;
+            cin >> key;
+
+            cout << obj.get(key) << endl;
+        }
+
+        else {
+
+            int key, value;
+            cin >> key >> value;
+
+            obj.put(key, value);
+        }
+    }
+
+    return 0;
+}
