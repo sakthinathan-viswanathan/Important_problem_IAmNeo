@@ -1,0 +1,83 @@
+Finding Best Performance Window
+
+A stock analyst in Chennai tracks daily profit/loss values in an array. They want to find the best consecutive period of exactly k days that gives the maximum average profit.
+
+Given an integer array nums and an integer k, find a contiguous subarray of length k that has the maximum average value, and return that average.
+
+Note: The subarray must be exactly length k, not smaller or larger
+
+Input format :
+First line: integer n
+Second line: n space-separated integers
+Third line: integer k
+Output format :
+First line: Max Average: x
+Second line: Subarray indices: l r
+Code constraints :
+1 <= n <= 10^5
+1 <= k <= n
+-10^4 <= nums[i] <= 10^4
+Answer precision within 1e-5 is acceptable
+Sample test cases :
+Input 1 :
+6
+1 3 2 6 4 5
+3
+Output 1 :
+Max Average: 5
+Subarray indices: 3 5
+Input 2 :
+6
+1 12 -5 -6 50 3
+4
+Output 2 :
+Max Average: 12.75
+Subarray indices: 1 4
+
+
+
+
+Solution:
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n;
+    cin>>n;
+    
+    vector<int>nums(n);
+    
+    for(int i=0;i<n;i++){
+        cin>>nums[i];
+    }
+    
+    
+    int k;
+    cin>>k;
+    
+    int sum = 0;
+    
+    int max_average = 0;
+    
+    int left = 0;
+    for(int right = 0;right < n;right++){
+        
+        sum += nums[right];
+        
+        if(right-left+1 > k){
+            
+            int average = sum / k;
+            
+            max_average = max(max_average,average);
+            
+            sum -= nums[left];
+            left++;
+        }
+    }
+    
+    cout<<max_average;
+    cout<<endl<<
+}
