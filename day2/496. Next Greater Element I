@@ -1,0 +1,109 @@
+Find Next Greater Product Demand
+
+A warehouse system in Chennai tracks product demand trends. You are given:
+
+nums2 → the full sequence of product demands
+nums1 → a subset of products taken from nums2
+
+For each product in nums1, you must:
+
+Find its position in nums2
+Look to the right side of that position
+Identify the first demand value that is greater than the current product’s demand
+
+If such a value exists, return it.
+
+If no greater value is found, return -1.
+
+For each element in nums1, find the next greater element to its right in nums2, otherwise return -1.
+
+Input format :
+First line: integer n → size of nums2
+Second line: n integers → nums2
+Third line: integer m → size of nums1
+Fourth line: m integers → nums1
+Output format :
+Print m space-separated integers
+Each value represents the next greater element for corresponding element in nums1
+
+Code constraints :
+1 <= m <= n <= 10^4
+All elements are distinct
+nums1 is subset of nums2
+
+Sample test cases :
+Input 1 :
+4
+1 3 4 2
+3
+4 1 2
+Output 1 :
+-1 3 -1
+Input 2 :
+4
+1 2 3 4
+2
+
+Solution:
+
+
+// You are using GCC
+#include<bits/stdc++.h>
+using namespace std;
+
+void NextGreaterElement(vector<int>& nums1,vector<int>& nums2){
+    
+    unordered_map<int,int>mp;
+    stack<int>stk;
+    
+    for(int i:nums2){
+        
+        while(!stk.empty() && stk.top() < i){
+            
+            mp[stk.top()] = i;
+            stk.pop();
+        }
+        
+        stk.push(i);
+    }
+    
+    vector<int>res;
+    
+
+        for(int num:nums1){
+            res.push_back(mp.count(num) ? mp[num] : -1);
+
+        }
+    
+    for(int i:res){
+        cout<<i<<" ";
+    }
+}
+
+int main(){
+    
+    
+    int n;
+    cin>>n;
+    
+    vector<int>nums2(n);
+    
+    for(int i=0;i<n;i++){
+        cin>>nums2[i];
+    }
+    
+    
+    int m;
+    cin>>m;
+    
+    vector<int>nums1(m);
+    
+    for(int i=0;i<m;i++){
+        cin>>nums1[i];
+    }
+    
+    NextGreaterElement(nums1,nums2);
+}
+2 4
+Output 2 :
+3 -1
