@@ -1,0 +1,53 @@
+Reversing a Customer Queue
+
+
+
+A bank in Chennai maintains a queue of customers using a linked list. Due to a system rollback, the bank needs to reverse the order of customers in the queue so that the last customer becomes the first.
+
+
+
+Given the head of a singly linked list, reverse the list and print the updated sequence.
+
+Input format :
+First line: integer n (number of nodes)
+Second line: n space-separated integers (linked list values)
+Output format :
+First line: reversed linked list (space-separated)
+Code constraints :
+0 <= n <= 5000
+-5000 <= value <= 5000
+Sample test cases :
+Input 1 :
+5
+1 2 3 4 5
+Output 1 :
+5 4 3 2 1
+Input 2 :
+3
+10 20 30
+Output 2 :
+30 20 10
+
+
+Solution:
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    
+    int n;
+    cin>>n;
+    
+    vector<int>nums(n);
+    
+    for(int i=0;i<n;i++){
+        cin>>nums[i];
+    }
+    
+    reverse(nums.begin(),nums.end());
+    
+    for(int i:nums){
+        cout<<i<<" ";
+    }
+}
