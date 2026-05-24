@@ -1,0 +1,59 @@
+Sort Daily Transaction Data using Merge Sort
+A financial analytics system in Chennai collects thousands of transaction values daily. Before generating reports, the system must sort all transaction values efficiently without using built-in sorting functions.
+
+Input format :
+First line: integer n (size of array)
+Second line: n space-separated integers
+Output format :
+First line: sorted array
+
+Code constraints :
+1 <= n <= 5 * 10^4
+-5 * 10^4 <= nums[i] <= 5 * 10^4
+Sample test cases :
+Input 1 :
+4  
+5 2 3 1
+Output 1 :
+1 2 3 5
+Input 2 :
+5
+10 -2 7 3 0
+Output 2 :
+-2 0 3 7 10
+
+
+Solution:
+
+
+// You are using GCC
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int n;
+    cin >> n;
+
+    vector<int> arr(n);
+
+    for(int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+    for(int i = 0; i < n - 1; i++) {
+
+        for(int j = 0; j < n - i - 1; j++) {
+
+            if(arr[j] > arr[j + 1]) {
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+
+    for(int x : arr) {
+        cout << x << " ";
+    }
+
+    return 0;
+}
