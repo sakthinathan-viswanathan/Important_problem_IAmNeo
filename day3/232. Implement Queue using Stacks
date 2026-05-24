@@ -1,0 +1,153 @@
+Simulating Customer Queue Using Stacks
+
+A ticket booking system in Chennai internally supports only stack operations due to system limitations. However, customers must be served in a queue (FIFO) manner.
+Your task is to design a queue using only stack operations.
+
+Implement a queue using two stacks that supports:
+
+push(x) → Add element to back
+pop() → Remove front element
+peek() → Get front element
+empty() → Check if queue is empty
+
+
+Note: A queue follows FIFO, but stacks follow LIFO, so we must cleverly reverse order.
+
+Input format :
+First line: integer q (number of operations)
+Next q lines:
+1 x → push(x)
+2 → pop
+3 → peek
+4 → empty﻿
+Output format :
+For each operation:
+
+push → print (x added)
+pop → print (x removed)
+if the queue is empty print(Queue is empty)
+peek → print (x at top)
+empty → print True/False
+Code constraints :
+1 <= q <= 100
+1 <= x <= 1000
+Sample test cases :
+Input 1 :
+7
+1 1
+1 2
+1 3
+2
+3
+2
+4
+Output 1 :
+1 added
+2 added
+3 added
+1 removed
+2 at top
+2 removed
+False
+Input 2 :
+8
+1 4
+1 5
+3
+2
+1 6
+3
+2
+3
+Output 2 :
+4 added
+5 added
+4 at top
+4 removed
+6 added
+5 at top
+5 removed
+6 at top
+
+
+Solution:
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class MyQueue {
+    stack<int> s1, s2;
+
+public:
+    void push(int x) {
+        s1.push(x);
+        cout << x << " added\n";
+    }
+
+    void transfer() {
+        if (s2.empty()) {
+            while (!s1.empty()) {
+                s2.push(s1.top());
+                s1.pop();
+            }
+        }
+    }
+
+    void pop() {
+        transfer();
+
+        if (s2.empty()) {
+            cout << "Queue is empty\n";
+            return;
+        }
+
+        cout << s2.top() << " removed\n";
+        s2.pop();
+    }
+
+    void peek() {
+        transfer();
+
+        if (s2.empty()) {
+            cout << "Queue is empty\n";
+            return;
+        }
+
+        cout << s2.top() << " at top\n";
+    }
+
+    void empty() {
+        cout << ((s1.empty() && s2.empty()) ? "True" : "False") << "\n";
+    }
+};
+
+int main() {
+
+    int q;
+    cin >> q;
+
+    MyQueue obj;
+
+    while (q--) {
+        int type;
+        cin >> type;
+
+        if (type == 1) {
+            int x;
+            cin >> x;
+            obj.push(x);
+        }
+        else if (type == 2) {
+            obj.pop();
+        }
+        else if (type == 3) {
+            obj.peek();
+        }
+        else if (type == 4) {
+            obj.empty();
+        }
+    }
+
+    return 0;
+}
