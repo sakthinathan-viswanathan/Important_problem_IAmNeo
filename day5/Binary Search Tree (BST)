@@ -1,0 +1,126 @@
+Intelligent Data Indexing using Balanced BST
+In a modern data storage and retrieval system, efficient access to sorted data is critical for performance optimization. The system stores large volumes of sorted numerical data (such as timestamps, IDs, or rankings) in an array format.
+However, searching directly in an array can become inefficient for repeated operations. To optimize query performance, the system needs to convert this sorted array into a Balanced Binary Search Tree (BST).
+
+
+
+A Binary Search Tree (BST) ensures:
+
+All values in the left subtree are less than the root.
+All values in the right subtree are greater than the root.
+
+
+A Balanced BST ensures:
+
+The height difference between the left and right subtree of any node is at most 1, ensuring efficient search operations (O(log n) complexity).
+Your task is to help the system automatically convert the given sorted array into a height-balanced BST.
+
+Input format :
+The first line contains an integer n — the number of elements
+The second line contains n space-separated sorted integers representing the array.
+Output format :
+Print the constructed Balanced BST in the following format:
+root -> (left: left_child, right: right_child)
+
+If a child does not exist, print null.
+Code constraints :
+1≤n≤105
+
+The array is sorted in ascending order
+
+All elements are unique integers
+
+Sample test cases :
+Input 1 :
+3
+-2 -3 -6
+Output 1 :
+-3 -> (left: -2, right: -6)
+Input 2 :
+1
+10
+Output 2 :
+10 -> (left: null, right: null)
+
+
+Solution:
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node{
+    public:
+    
+    int data;
+    Node* left;
+    Node* right;
+    
+    Node(int val){
+        data = val;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+Node* insert(vector<int> &arr,int start,int end){
+    
+    if(start > end){
+        return nullptr;
+    }
+    
+    int mid = (start+end)/2;
+    
+    Node* nn = new Node(arr[mid]);
+    
+    nn->left = insert(arr,start,mid-1);
+    nn->right = insert(arr,mid+1,end);
+    
+    return nn;
+}
+
+
+
+
+
+
+int main(){
+    
+    int n;
+    cin>>n;
+    
+    vector<int>arr(n);
+    
+    for(int i=0;i<n;i++){
+        
+        cin>>arr[i];
+        
+    }
+    
+    Node* root = insert(arr,0,n-1);
+    
+    if(root != nullptr){
+        cout<<root->data<<" ";
+    }
+    else
+    {
+        cout<<"nullptr";
+        return 0;
+    }
+    
+    if(root->left != nullptr){
+        cout<<" -> (left: "<<root->left->data;
+    }
+    else
+    {
+        cout<<" -> (left: nullptr";
+        
+    }
+    if(root->right != nullptr){
+        cout<<", right: "<<root->right->data<<")";
+    }
+    else
+    {
+        cout<<", right: "<<nullptr<<")";
+        
+    }
+}
