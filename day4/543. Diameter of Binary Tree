@@ -1,0 +1,142 @@
+Longest Communication Chain in an Organization (Tree Diameter)
+
+A company has a hierarchical organizational structure where each employee may have up to two direct subordinates. This structure forms a binary tree, where:
+
+
+
+Each node represents an employee
+
+A connection (edge) represents a direct reporting relationship
+Information can flow between employees through these reporting links.
+
+
+The efficiency of communication is defined as the maximum number of connections (edges) required to pass information between any two employees in the organization.
+
+
+
+Your task is to compute this maximum value.
+
+In simpler terms, find the diameter of the binary tree — the longest path between any two nodes (measured in number of edges).
+
+Input format :
+First line: Integer n → number of employees
+Second line: Space-separated values representing the hierarchy in level-order
+Use -1 to represent no employee (missing node
+Output format :
+Print a single integer → maximum number of connections between any two employees
+Code constraints :
+1 ≤ n ≤ 10^4
+-100 ≤ value ≤ 100
+Hierarchy is valid (no cycles)
+Structure may not be complete
+Sample test cases :
+Input 1 :
+3
+1 2 3
+Output 1 :
+2
+Input 2 :
+7
+1 2 3 4 -1 -1 5
+Output 2 :
+4
+
+
+
+Solution:
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node{
+    public:
+    int data;
+    Node* left;
+    Node* right;
+    
+    Node(int val){
+        data = val;
+        
+        left = right = nullptr;
+    }
+};
+
+Node* root = nullptr;
+
+void insert(int val){
+    
+    Node* nn = new Node(val);
+    
+    if(root == nullptr){
+        root = nn;
+        return ;
+    }
+    
+    Node* temp = root;
+    
+    while(true){
+        
+        
+        if(temp->data < val){
+            if(temp -> right == nullptr){
+                temp->right = nn;
+                return ;
+            }
+            temp = temp->right;
+        }
+        else
+        {
+            if(temp->left == nullptr)
+            {
+                temp->left = nn;
+                return ;
+            }
+            
+            temp = temp->left;
+            
+        }
+        
+    }
+    
+    return ;
+    
+}
+
+int diameter = 0;
+
+int print(Node* temp){
+    
+    if(temp == nullptr){
+        return 0;
+    }
+    
+   int l = print(temp->left);
+   int r = print(temp->right);
+   
+    diameter = max(diameter,l+r);
+   
+   
+    
+    return 1 + max(l,r);
+}
+
+int main(){
+    
+    int n;
+    cin>>n;
+    
+    vector<int>arr(n);
+    
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+        insert(arr[i]);
+    }
+    
+  
+    
+    print(root);
+    cout<<diameter;
+    
+    
+    
+}
