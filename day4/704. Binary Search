@@ -1,0 +1,82 @@
+Efficient Product Price Lookup
+
+An e-commerce platform maintains a catalog of product prices that is sorted in strictly increasing order. Since the catalog is large, the system must use an efficient search mechanism to quickly locate a product price.
+
+When a customer searches for a specific price:
+
+If the price exists in the catalog, return its index (0-based)
+If the price does not exist, return -1
+
+Your task is to implement an efficient algorithm to perform this search.
+
+Input format :
+First line: Integer n → number of product prices
+Second line: n space-separated integers → sorted product prices
+Third line: Integer target → price to search
+Output format :
+Print the index of the target price
+If not found, print -1
+Code constraints :
+1 ≤ n ≤ 10^4
+-10^4 < price, target < 10^4
+All values are unique
+Prices are sorted in increasing order
+Sample test cases :
+Input 1 :
+5
+2 4 6 8 10
+6
+Output 1 :
+2
+Input 2 :
+9
+-20 -10 -5 0 5 10 15 20 25
+15
+Output 2 :
+6
+
+
+
+Solution:
+
+
+// You are using GCC
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    
+    int n;
+    cin>>n;
+    
+    vector<int>arr(n);
+    
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    
+    int tar;
+    cin>>tar;
+    
+    int l = 0;
+    int r = n-1;
+    
+    while(l <= r){
+        
+        int mid = (l+r)/2;
+        
+        if(arr[mid] == tar){
+            cout<<mid;
+            return 0;
+        }
+        else if(arr[mid] < tar){
+            l = mid +1;
+        }
+        else
+        {
+            r = mid -1;
+        }
+    }
+    
+    cout<<"-1";
+}
