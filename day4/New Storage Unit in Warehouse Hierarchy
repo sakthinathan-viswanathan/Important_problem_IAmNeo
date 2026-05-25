@@ -1,0 +1,138 @@
+Insert a New Storage Unit in Warehouse Hierarchy
+
+A warehouse management system organizes storage units using a hierarchical structure based on their IDs. This structure follows the rules of a Binary Search Tree (BST):
+
+Storage units with smaller IDs are placed in the left subtree
+Storage units with larger IDs are placed in the right subtree
+
+
+You are given a list of existing storage unit IDs. These IDs are inserted one by one in the given order to form the BST.
+
+Now, a new storage unit arrives with a unique ID. Your task is to:
+
+
+
+Insert the new storage unit into the BST while maintaining the BST properties
+Print the updated structure using level-order traversal (BFS)
+Input format :
+First line: Integer n → number of existing storage units
+Second line: n space-separated integers → storage IDs
+Third line: Integer val → new storage ID to insert
+Output format :
+Print the updated structure in level-order traversal
+Code constraints :
+0 ≤ n ≤ 10^4
+-10^8 ≤ storage ID ≤ 10^8
+All IDs are unique
+The new ID does not already exist
+Sample test cases :
+Input 1 :
+4
+10 5 15 3
+7
+Output 1 :
+10 5 15 3 7
+Input 2 :
+7
+30 20 40 10 25 35 50
+22
+Output 2 :
+30 20 40 10 25 35 50 22
+
+
+Solution:
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node{
+    public:
+    int data;
+    Node* left;
+    Node* right;
+    
+    Node(int val){
+        data = val;
+        
+        left = right = nullptr;
+    }
+};
+
+Node* root = nullptr;
+
+void insert(int val){
+    
+    Node* nn = new Node(val);
+    
+    if(root == nullptr){
+        root = nn;
+        return ;
+    }
+    
+    Node* temp = root;
+    
+    while(true){
+        
+        
+        if(temp->data < val){
+            if(temp -> right == nullptr){
+                temp->right = nn;
+                return ;
+            }
+            temp = temp->right;
+        }
+        else
+        {
+            if(temp->left == nullptr)
+            {
+                temp->left = nn;
+                return ;
+            }
+            
+            temp = temp->left;
+            
+        }
+        
+    }
+    
+    return ;
+    
+}
+
+void print(Node* temp){
+    
+    if(temp == nullptr){
+        return ;
+    }
+    
+    cout<<temp->data<<" ";
+    
+    print(temp->left);
+    print(temp->right);
+    
+    return ;
+}
+
+int main(){
+    
+    int n;
+    cin>>n;
+    
+    vector<int>arr(n);
+    
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+        insert(arr[i]);
+    }
+    
+    int u;
+    cin>>u;
+    
+    insert(u);
+    
+    print(root);
+    
+    
+    
+}
