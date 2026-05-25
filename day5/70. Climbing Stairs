@@ -1,0 +1,61 @@
+Staircase Climber — Count Distinct Ways to Reach the Top"
+
+You are working as a developer for a fitness app, and you have been tasked with implementing a feature to track the number of ways a user can climb a staircase. The user can climb the stairs in steps of either 1 or 2 at a time. You need to find the total number of distinct ways the user can reach the top of the staircase, given the total number of steps.
+
+
+
+The user is provided with the number of steps n in the staircase, and you need to calculate how many distinct ways they can climb the staircase, considering that each time they can either take 1 step or 2 steps.
+
+Input format :
+An integer n representing the number of steps in the staircase.
+
+Output format :
+An integer representing the total number of distinct ways to reach the top of the staircase.
+
+
+
+Code constraints :
+1 ≤ n ≤ 45
+
+Sample test cases :
+Input 1 :
+5
+Output 1 :
+Total number of ways to climb 5 steps: 8
+
+Solution:
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<int>dp;
+
+int ClimbingStairs(int n){
+    
+    if(n == 1){
+        return 1;
+    }
+    
+    if(n == 2){
+        return 2;
+    }
+    
+    if(dp[n] != -1){
+        return dp[n];
+    }
+    
+    return dp[n] = ClimbingStairs(n-1) + ClimbingStairs(n-2);
+}
+
+
+
+int main(){
+    
+    int n;
+    cin>>n;
+    
+    dp.resize(n+1,-1);
+    
+    cout<<ClimbingStairs(n);
+}
