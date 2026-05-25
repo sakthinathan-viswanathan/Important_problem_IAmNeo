@@ -1,0 +1,104 @@
+Middle Customer Interaction Finder
+
+In a customer relationship management (CRM) system, you are given a linked list representing a series of customer interactions, with each node containing information about a specific interaction. The linked list is ordered in the order of the interactions, starting from the first interaction and ending with the last.
+
+The task is to find the middle customer interaction. If the number of interactions is odd, return the exact middle interaction. If the number of interactions is even, return the second middle interaction.
+
+Input format :
+First line contains an integer n — number of nodes in the linked list
+Second line contains n space-separated integers representing the linked list
+Output format :
+Print the linked list starting from the middle node:
+value1 -> value2 -> value3 .
+
+Code constraints :
+The linked list will have at least one node.
+
+The length of the linked list will be at most 10^5.
+
+Sample test cases :
+Input 1 :
+5
+1 2 3 4 5
+Output 1 :
+3 -> 4 -> 5
+Input 2 :
+6
+6 7 8 9 11 12
+Output 2 :
+9 -> 11 -> 12
+
+  Solution:
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class List{
+    public:
+    int data;
+    List* next;
+    
+    List(int val){
+        data = val;
+        next = nullptr;
+    }
+};
+
+List* head = nullptr;
+
+void insert(int val){
+    List* nn = new List(val);
+    
+    if(head == nullptr){
+        head = nn;
+        return ;
+    }
+    
+    List* temp = head;
+    
+    while(temp->next != nullptr){
+        temp = temp->next;
+    }
+    
+    temp->next = nn;
+    
+    return ;
+}
+
+
+void print(List* temp){
+    
+    if(temp == nullptr){
+        return ;
+    }
+    
+    List* slow = temp;
+    List* fast = temp;
+    
+    while(fast != nullptr && fast->next != nullptr){
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    
+    while(slow != nullptr){
+            cout << slow->data;
+            if(slow->next) cout << " -> ";
+            slow = slow->next;
+    }
+}
+int main(){
+    
+    int n;
+    cin>>n;
+    
+    vector<int>arr(n);
+    
+    for(int i=0;i<n;i++){
+        
+        cin>>arr[i];
+        insert(arr[i]);
+    }
+    
+    print(head);
+}
