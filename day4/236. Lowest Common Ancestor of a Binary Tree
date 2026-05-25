@@ -1,0 +1,140 @@
+Rescue Network Path Junction
+In a smart city, emergency communication towers are organized in the form of a binary tree, where each tower has a unique ID.
+
+Two emergency signals originate from towers p and q. These signals move upward toward the main control tower (root), passing through their parent towers.
+
+The city control center needs to determine the lowest (deepest) tower that lies on the path from both p and q to the root.
+
+
+
+Your task is to find the Lowest Common Ancestor (LCA) of the two given towers.
+
+Input format :
+The first line contains the binary tree in level-order form.
+Use null for missing children.
+The second line contains integer p — the ID of the first tower.
+The third line contains integer q — the ID of the second tower.
+Output format :
+Print the ID of the lowest common ancestor of towers p and q.
+Code constraints :
+2 <= number of nodes <= 10^5
+-10^9 <= node values <= 10^9
+All node values are unique
+p != q
+Both p and q exist in the tree
+Sample test cases :
+Input 1 :
+3 5 1 6 2 0 8 null null 7 4
+5
+1
+Output 1 :
+3
+Input 2 :
+3 5 1 6 2 0 8 null null 7 4
+5
+4
+Output 2 :
+5
+
+
+
+Solution:
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node{
+public:
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int val){
+        data = val;
+        left = right = nullptr;
+    }
+};
+
+// Build binary tree from level order
+Node* buildTree(vector<string>& arr){
+
+    if(arr.empty() || arr[0] == "null")
+        return nullptr;
+
+    Node* root = new Node(stoi(arr[0]));
+
+    queue<Node*> q;
+    q.push(root);
+
+    int i = 1;
+
+    while(!q.empty() && i < arr.size()){
+
+        Node* cur = q.front();
+        q.pop();
+
+        // left child
+        if(i < arr.size() && arr[i] != "null"){
+            cur->left = new Node(stoi(arr[i]));
+            q.push(cur->left);
+        }
+        i++;
+
+        // right child
+        if(i < arr.size() && arr[i] != "null"){
+            cur->right = new Node(stoi(arr[i]));
+            q.push(cur->right);
+        }
+        i++;
+    }
+
+    return root;
+}
+
+// Lowest Common Ancestor
+Node* lca(Node* root, int p, int q){
+
+    if(root == nullptr)
+        return nullptr;
+
+    if(root->data == p || root->data == q)
+        return root;
+
+    Node* left = lca(root->left, p, q);
+    Node* right = lca(root->right, p, q);
+
+    // both found
+    if(left && right)
+        return root;
+
+    // only one side found
+    return left ? left : right;
+}
+
+int main(){
+
+    string line;
+    getline(cin, line);
+
+    vector<string> arr;
+    stringstream ss(line);
+
+    string x;
+
+    while(ss >> x){
+        arr.push_back(x);
+    }
+
+    int p, q;
+    cin >> p;
+    cin >> q;
+
+    Node* root = buildTree(arr);
+
+    Node* ans = lca(root, p, q);
+
+    cout << ans->data;
+
+    return 0;
+}
