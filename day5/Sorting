@@ -1,0 +1,53 @@
+Data Analysis Sorter — Sort Dataset in Non-Decreasing Order
+
+In a data analysis system, you are given an array of integers that represents a dataset. You need to sort the dataset in non-decreasing order to perform further statistical analysis on it. The dataset may contain a large number of integers, and you need to sort the array efficiently.
+
+Your task is to implement an algorithm that sorts the given array of integers.
+
+Input format :
+First line contains an integer n — the number of elements in the dataset
+Second line contains n space-separated integers representing the array nums[]
+Output format :
+Print the sorted array as a single line of space-separated integers in non-decreasing order
+Code constraints :
+The number of integers in the array n will be between 1 and 10^5
+
+The integers in the array can be between −10^5 and 10^5
+
+Sample test cases :
+Input 1 :
+4
+3 1 4 2
+Output 1 :
+1 2 3 4 
+Input 2 :
+6
+-3 1 -4 1 5 -2
+Output 2 :
+-4 -3 -2 1 1 5
+
+Solution:
+
+
+// You are using GCC
+// You are using GCC
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    
+    int n;
+    cin>>n;
+    
+    vector<int> arr(n);
+    
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    
+    sort(arr.begin(),arr.end());
+    
+    for(int i:arr){
+        cout<<i<<" ";
+    }
+}
