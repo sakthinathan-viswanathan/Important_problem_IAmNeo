@@ -1,0 +1,96 @@
+Count Independent Land Regions in a Grid
+
+A logistics company analyzes satellite images of coastal regions to identify independent land zones for development.
+
+The map is represented as a 2D grid of size m × n, where:
+
+1 represents land
+0 represents water
+
+A land region (island) is defined as a group of land cells that are connected horizontally or vertically (4-directional connectivity).
+
+Two land cells belong to the same region if they are directly connected through adjacent land cells.
+
+Your Task:
+
+Determine the total number of distinct land regions (islands) present in the grid.
+Input format :
+First line: Two integers m and n → number of rows and columns
+Next m lines: Each line contains n space-separated values (0 or 1)
+Output format :
+Print a single integer → number of distinct land regions
+
+Code constraints :
+1 ≤ m, n ≤ 300
+Each cell contains either 0 or 1
+Only horizontal and vertical connections are valid
+Grid edges are surrounded by water
+Sample test cases :
+Input 1 :
+2 3
+1 0 1
+0 0 0
+Output 1 :
+2
+Input 2 :
+4 5
+1 1 0 0 1
+1 0 0 1 1
+0 0 1 0 0
+1 1 0 0 1
+Output 2 :
+5
+
+
+
+Solution:
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void dfs(int r,int c,vector<vector<int>> &grid){
+    int n = grid.size();
+    int m = grid[0].size();
+    
+    if(r < 0 || r >= n || c < 0 || c >= m || grid[r][c] != 1){
+        return ;
+    }
+    
+    grid[r][c] = 2;
+    
+    dfs(r+1,c,grid);
+    dfs(r-1,c,grid);
+    dfs(r,c+1,grid);
+    dfs(r,c-1,grid);
+    
+    return ;
+}
+
+int main(){
+    
+    int n,m;
+    cin>>n>>m;
+    
+    vector<vector<int>>grid(n,vector<int>(m));
+    
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            cin>>grid[i][j];
+        }
+    }
+    
+    int count = 0;
+    
+  for(int i=0;i<n;i++){
+      for(int j=0;j<m;j++){
+          if(grid[i][j] == 1){
+             dfs(i,j,grid);
+             count++;
+          }
+      }
+  }
+  
+  cout<<count;
+    
+}
