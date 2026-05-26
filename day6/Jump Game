@@ -1,0 +1,57 @@
+A courier is delivering packages along a line of towns. Each town has a fuel station that can provide enough fuel for the courier to travel forward a certain number of towns.The courier starts at the first town. Your task is to determine whether the courier can reach the last town using the available fuel stations along the way.Each town is described by a number representing how many towns ahead the courier can reach from that town.
+
+Input format :
+First line: an integer n — the total number of towns.
+
+Second line: n integers separated by spaces — the fuel capacity in each town.
+
+Output format :
+Yes => If the courier can reach the last town.
+
+No =>Otherwise.
+
+Code constraints :
+1 <= n <= 100000
+
+0 <= fuel[i] <= 100000
+
+
+
+
+
+Sample test cases :
+Input 1 :
+5
+2 3 1 1 4
+Output 1 :
+Yes
+
+
+  #include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    
+    int n;
+    cin>>n;
+    
+    vector<int>arr(n);
+    
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    
+    int maxReach = 0;
+    
+    for(int i=0;i<n;i++){
+        
+        if(i > maxReach){
+            cout<<"NO";
+            return 0;
+        }
+        
+        maxReach = max(maxReach,arr[i]+i);
+    }
+    
+    cout<<"YES";
+}
