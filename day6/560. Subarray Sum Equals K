@@ -1,0 +1,32 @@
+You are building a bank transaction monitoring system.A user performs a sequence of transactions throughout the day:
+
+Positive values =>deposits
+Negative values => withdrawals
+Your task is:Count how many continuous transaction sequences result in a net balance change equal to a target value K.This helps detect patterns like repeated deposits or suspicious withdrawals.
+
+Input format :
+First line: Integer n => number of transactions
+
+Second line: n space-separated integers =>transaction values
+
+Third line: Integer k =>target balance
+
+Output format :
+Print a single integer =>number of valid transaction sequences
+
+Code constraints :
+1 ≤ n ≤ 20,000
+
+-1000 ≤ transaction[i] ≤ 1000
+
+-107 ≤ k ≤ 107
+
+Result fits in 32-bit integer
+
+Sample test cases :
+Input 1 :
+5
+1 1 1 1 1
+2
+Output 1 :
+4
