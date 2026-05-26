@@ -1,0 +1,130 @@
+You are building a corporate hierarchy dashboard.
+
+Each employee has:
+
+	A unique ID
+	At most two direct subordinates (left and right reporting employees)
+The CEO is at the top.Your task is to display employees level by level, starting from the CEO:
+
+First => CEO,
+
+Next => direct subordinates,
+
+Then => their subordinates…and so on.
+
+Return the employee IDs grouped level-wise.
+
+Input format :
+First line: Integer n =>total number of employees
+
+Second line: n space-separated integers => employee IDs in level-order format
+
+Use -1 to represent a missing employee (no subordinate)
+
+Output format :
+Print employee IDs level by level
+
+Each level in a new line
+
+IDs separated by space
+
+Code constraints :
+0 ≤ n ≤ 2000
+
+Employee IDs are unique integers
+
+-1 represents no employee at that position
+
+Structure follows level-order insertion
+
+Output must preserve level grouping
+
+Sample test cases :
+Input 1 :
+3
+1 2 3
+Output 1 :
+1 
+2 3 
+Solution:
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node{
+    public:
+    int data;
+    Node* left;
+    Node* right;
+    
+    Node(int val){
+        data = val;
+        
+        left = nullptr;right = NULL;
+    }
+};
+
+Node* insert(vector<int>& arr, int i, int n){
+
+    if(i >= n){
+        return nullptr;
+    }
+
+    Node* nn = new Node(arr[i]);
+
+    nn->left = insert(arr, 2*i + 1, n);
+    nn->right = insert(arr, 2*i + 2, n);
+
+    return nn;
+}
+
+void print(Node* root){
+    
+    
+    if(root == nullptr){
+        return ;
+    }
+    
+    queue<Node*>que;
+    que.push(root);
+    
+    while(!que.empty()){
+        
+        int n = que.size();
+        
+        for(int i=0;i<n;i++){
+            Node* node = que.front();
+            que.pop();
+            
+            cout<<node->data<<" ";
+            
+            if(node->left != nullptr){
+                que.push(node->left);
+            }
+            
+            if(node->right != nullptr){
+                que.push(node->right);
+            }
+        }
+        
+        cout<<endl;
+    }
+
+}
+
+int main(){
+    
+    int n;
+    cin>>n;
+    
+    vector<int>arr(n);
+    
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    
+    Node* root = insert(arr,0,n);
+    
+    print(root);
+}
