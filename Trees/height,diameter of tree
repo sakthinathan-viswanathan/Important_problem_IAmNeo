@@ -1,0 +1,163 @@
+// You are using GCC
+// You are using GCC
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Node{
+    
+    int data;
+    Node* left;
+    Node* right;
+    
+    Node(int val){
+        data = val;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+
+
+
+    
+Node* insertTree(vector<int> &arr,int n,int i){
+        
+        
+        if(i >= n || arr[i] == -1){
+            return nullptr;
+        }
+        
+        Node* node = new Node(arr[i]);
+        
+        node->left = insertTree(arr,n,i*2+1);
+        node->right = insertTree(arr,n,i*2+2);
+        
+    return node;
+    
+}
+
+void preOrder(Node* temp){
+    
+    if(temp == nullptr){
+        return ;
+    }
+    
+    
+    cout<<temp->data<<" ";
+    preOrder(temp->left);
+    preOrder(temp->right);
+    
+    
+}
+
+void inOrder(Node* temp){
+    if(temp == nullptr){
+        return ;
+    }
+    
+    inOrder(temp->left);
+    cout<<temp->data<<" ";
+    inOrder(temp->right);
+    
+  
+}
+
+void postOrder(Node* temp){
+    if(temp == nullptr){
+        return ;
+    }
+    
+    postOrder(temp->left);
+    postOrder(temp->right);
+    cout<<temp->data<<" ";
+    
+    
+}
+
+void levelOrder(Node* temp){
+    if(temp == nullptr){
+        return ;
+    }
+    
+    queue<Node*>que;
+    que.push(temp);
+    
+    while(!que.empty()){
+        
+        int n = que.size();
+        
+        for(int i=0;i<n;i++){
+            Node* node = que.front();
+            que.pop();
+            
+            cout<<node->data<<" ";
+            
+            if(node->left != nullptr){
+                que.push(node->left);
+                
+            }
+           
+           if(node->right != nullptr){
+               que.push(node->right);
+           }
+        }
+    }
+    
+    
+    
+    
+}
+
+int heightOfTree(Node* temp){
+    
+    if(temp == nullptr){
+        return 0;
+    }
+    
+    return 1+max(heightOfTree(temp->left),heightOfTree(temp->right));
+}
+
+int diameter = 0;
+
+int diameterOfTheTree(Node* temp){
+    
+    if(temp == nullptr){
+        return 0;
+    }
+    
+    int l = diameterOfTheTree(temp->left);
+    int r = diameterOfTheTree(temp->right);
+    
+    diameter = max(diameter,r+l+1);
+    
+    return 1+max(l,r);
+}
+
+
+
+
+int main(){
+    
+    int n;
+    cin>>n;
+    
+    vector<int>arr(n);
+    
+    Node* root = nullptr;
+    
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    
+    root = insertTree(arr,n,0);
+    
+    int height = heightOfTree(root);
+    
+    cout<<height<<endl;
+    
+    diameterOfTheTree(root);
+    
+    cout<<diameter<<endl;
+    
+   
+}
